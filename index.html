@@ -124,7 +124,8 @@ nav{
   flex-direction:column;
   gap:25px;
   padding-top:80px;
-  align-items:center;
+  padding-left:30px;
+  align-items: self-start;
   transition:0.3s;
 }
 
@@ -219,6 +220,231 @@ img{
   max-width:100%;
   height:auto;
 }
+
+/* CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:22px;
+  cursor:pointer;
+  color:#fff;
+}
+
+/* HIDE CLOSE BTN ON DESKTOP */
+@media (min-width: 769px){
+  .close-btn{
+    display:none;
+  }
+}
+
+/* MOBILE SIDEBAR FIX */
+@media (max-width: 768px){
+
+  #sidebar{
+    position:fixed;
+    top:0;
+    right:-250px;
+    width:250px;
+    height:100vh;
+    background:#000;
+    flex-direction:column;
+    align-items: self-start;
+    padding-top:80px;
+    padding-left: 30px;
+    transition:0.3s;
+  }
+
+  #sidebar.active{
+    right:0;
+  }
+}
+/* ===== SLIDER2 ===== */
+
+.slider2{
+  position:relative;
+  max-width:900px;
+  margin:50px auto;
+  overflow:hidden;
+  border-radius:15px;
+}
+
+.slides{
+  position:relative;
+}
+
+.slide{
+  width:100%;
+  display:none;
+  border-radius:15px;
+  transition:0.5s;
+}
+
+.slide.active{
+  display:block;
+}
+
+.prev, .next{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);
+  color:#fff;
+  border:none;
+  padding:10px 15px;
+  cursor:pointer;
+  font-size:20px;
+  border-radius:50%;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+.prev:hover, .next:hover{
+  background:#4cc9f0;
+  color:#000;
+}
+
+.dots{
+  text-align:center;
+  margin-top:10px;
+}
+
+.dot{
+  height:10px;
+  width:10px;
+  margin:5px;
+  display:inline-block;
+  background:#555;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.dot.active{
+  background:#4cc9f0;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  .slider2{
+    max-width:95%;
+  }
+
+  .prev, .next{
+    padding:8px 10px;
+    font-size:16px;
+  }
+}
+/* VIDEO PLAYER */
+.video-player{
+  display:flex;
+  justify-content:center;
+  padding:60px 20px;
+}
+
+.video-card{
+  position:relative;
+  max-width:900px;
+  width:100%;
+  border-radius:15px;
+  overflow:hidden;
+  background:#000;
+}
+
+/* VIDEO */
+.video-card video{
+  width:100%;
+  display:block;
+}
+
+/* BIG PLAY BUTTON */
+.big-play{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:60px;
+  color:#fff;
+  background:rgba(0,0,0,0.6);
+  padding:20px 30px;
+  border-radius:50%;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.big-play:hover{
+  background:#4cc9f0;
+  color:#000;
+}
+
+/* CONTROLS */
+.controls{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  transition:0.3s;
+}
+
+/* AUTO HIDE */
+.video-card.hide-controls .controls{
+  opacity:0;
+}
+
+/* BUTTONS */
+.controls button,
+.controls a{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+/* SLIDERS */
+#progress{
+  flex:1;
+}
+
+#volume{
+  width:80px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px){
+
+  .big-play{
+    font-size:40px;
+    padding:15px 20px;
+  }
+
+  #volume{
+    width:60px;
+  }
+}
+
+@media (max-width:480px){
+
+  .controls{
+    gap:5px;
+    padding:8px;
+  }
+
+  #volume{
+    display:none;
+  }
+
+  .big-play{
+    font-size:30px;
+  }
+}
+
 </style>
 </head>
 
@@ -235,6 +461,7 @@ img{
 
   <!-- SIDEBAR -->
   <ul id="sidebar">
+    <span class="close-btn" onclick="closeMenu()">✖</span>
   <li onclick="scrollToTop(); closeMenu()">Home</li>
   <li onclick="scrollToMap(); closeMenu()">Map</li>
   <li onclick="scrollToStats(); closeMenu()">Stats</li>
@@ -283,14 +510,91 @@ The next time a late-night craving is satisfied, a cab arrives in minutes, or a 
 Somewhere in the city, someone is just starting their day.
 While India sleeps, millions are awake—keeping the country moving, one midnight shift at a time.
 </section>
+
 <section class="section fade-section">
-<div style="margin-bottom: 20px; font-size: 2rem; ">Millions Awake. One Nation Moving.</div>
+  <h2 class="NewVideo" style=" display: flex; align-items: center; justify-content: center;  font-size: 2rem; color: aqua; "> Video</h2>
+  <div class="video-player">
+
+  <div class="video-card" id="videoCard">
+ 
+    <video id="video" src="video2.mp4"></video>
+
+    <!-- BIG PLAY BUTTON -->
+    <div class="big-play" onclick="togglePlay()">▶</div>
+
+    <!-- CONTROLS -->
+    <div class="controls" id="controls">
+
+      <button onclick="togglePlay()">⏯</button>
+
+      <input type="range" id="progress" value="0">
+
+      <span id="time">0:00</span>
+
+      <input type="range" id="volume" min="0" max="1" step="0.1">
+
+      <button onclick="toggleLoop()">🔁</button>
+
+      <a id="downloadBtn" download>
+        ⬇
+      </a>
+
+      <button onclick="goFullscreen()">⛶</button>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<section class="section fade-section">
+<h2> Can India Become a 24-Hour Nation?  </h2>
+<br><br><span class="highlight">  Opportunities and Risks</span> <br> <br>
+At 3:05 AM, a college student finishes an assignment and orders noodles online. A warehouse worker scans parcels for morning delivery. A customer support executive answers a call from another continent while a cab driver waits outside an airport gate. India may look asleep—but a silent shift is already underway.
+The idea of India as a 24-hour nation is no longer futuristic. It is slowly becoming reality. The real question is whether this change can grow safely, fairly, and sustainably. <br><br><span class="highlight">  What Does a 24-Hour Nation Mean? </span> <br> <br> A 24-hour economy is one where services, businesses, and transport operate round the clock. Grocery stores, gyms, cafés, offices, and public transport continue running beyond traditional working hours.
+Cities like New York City and London have followed this model for years. India, traditionally a day-centric country, is now moving in the same direction—largely because of digital technology.
+Why India Is Moving Toward a 24×7 Culture <br><br>  <img src="cluture.jpeg" alt=""> <br><br><span class="highlight">  1️⃣ Smartphone and App Revolution  </span> <br> <br> Affordable internet and smartphones have transformed daily life. Ordering food at midnight, booking cabs at 4 AM, or binge-watching shows overnight is now common.
+Platforms like Zomato and Swiggy report strong late-night demand. Ride-hailing services like Uber operate 24×7, making travel possible at any hour. When customers stay awake longer, businesses naturally follow. <br><br><span class="highlight"> 2️⃣ Global Work and Outsourcing   </span> <br> <br> India has worked nights for decades due to IT and BPO services. Companies like TCS and Infosys serve clients across time zones. When the United States starts its workday, it is nighttime in India. This global connection has already proven that India can operate productively after dark. <br><br><span class="highlight">  3️⃣ E-commerce and Instant Delivery   </span> <br><br> Today’s customers expect fast delivery. E-commerce giants such as Amazon and Flipkart rely on overnight warehouse operations. Quick-commerce platforms like Blinkit push expectations even further with ultra-fast delivery. To meet these promises, someone must work while cities sleep. <br><br><span class="highlight">   Opportunities of a 24-Hour India   </span> 
+<br><br><span class="highlight"> <h5> More jobs and income </h5>  </span> <br> Round-the-clock operations create new employment opportunities for students, freelancers, women seeking flexible schedules, and gig workers. <br><br><span class="highlight"> <h5>  Economic growth  </h5> </span> <br> Longer business hours mean more spending, higher productivity, and efficient use of infrastructure such as airports and metro systems. <br><br><span class="highlight"> <h5> Safer and livelier cities  </h5> </span> <br> Active streets with open shops and transport often feel safer than empty roads. More people in public spaces can reduce crime and improve community life.
+<br><br><span class="highlight">  The Hidden Risks </span> <br> <br><br><span class="highlight"> <h5>   Health challenges  </h5> </span> <br> Night work can disrupt sleep cycles and affect mental and physical health. Fatigue, stress, and lifestyle diseases are common concerns. 
+<br><br><span class="highlight"> <h5>    Infrastructure gaps   </h5> </span> <br> Late-night work needs reliable transport, street lighting, and emergency services. Many areas still lack these essentials, making night work unsafe—especially for women.
+<br><br><span class="highlight"> <h5>   Gig worker protections   </h5> </span> <br> Much of the night economy depends on gig workers who often lack job security, insurance, and stable income. Labour laws must evolve to protect them.
+<br><br><span class="highlight"> <h5>   The Road Ahead   </h5> </span> <br> India is gradually becoming a 24-hour economy with more late-night services and overnight work. However, this shift needs careful planning, strong infrastructure, and better labour protections. If managed well, it can create jobs, boost productivity, and increase convenience; if not, it may lead to inequality and worker exploitation. The goal is to build a system where night work is safe, fair, and sustainable.
+</section>
+
+<section class="section fade-section">
+
+<h2 class="NewVideo" style=" display: flex; align-items: center; justify-content: center;  font-size: 2rem; color: aqua; "> Images</h2>
+  <div class="slider2">
+
+  <div class="slides">
+    <img src="Slider.jpeg" class="slide active">
+    <img src="Slider2.jpeg" class="slide">
+    <img src="Slider3.jpeg" class="slide">
+    <img src="Slider4.jpeg" class="slide">
+  </div>
+
+  <button class="prev" onclick="prevSlide()">❮</button>
+  <button class="next" onclick="nextSlide()">❯</button>
+
+  <div class="dots">
+    <span onclick="goToSlide(0)" class="dot active"></span>
+    <span onclick="goToSlide(1)" class="dot"></span>
+    <span onclick="goToSlide(2)" class="dot"></span>
+    <span onclick="goToSlide(3)" class="dot"></span>
+  </div>
+
+</div>
+</section>
+<section class="section fade-section">
+<div class="chart" style="margin-bottom: 20px; font-size: 2rem; ">Millions Awake. One Nation Moving.</div>
 <h2 style=" padding-bottom: 30px; padding-top: 20px; display: flex; align-items: center; justify-content: center">Night Economy Growth</h2>
 <div class="chart-container"><canvas id="chart"></canvas></div>
 </section>
 
 <section class="section fade-section">
-<h2>India Night Hotspots</h2>
+<h2 class="map">India Night Hotspots</h2>
 <div id="map"></div>
 </section>
 
@@ -330,8 +634,7 @@ While India sleeps, millions are awake—keeping the country moving, one midnigh
 <section class="parallax">
   <div>“While India sleeps, millions are working.”</div>
 </section>
-
-<footer>© 2026 NightShift India 🌙 Cinematic Experience</footer>
+<footer>© 2026 Night Shift India</footer>
 
 <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
@@ -404,12 +707,113 @@ function scrollToTop(){
 }
 
 function scrollToMap(){
-  document.querySelector('#map').scrollIntoView({behavior:'smooth'});
+  document.querySelector('.map').scrollIntoView({behavior:'smooth'});
 }
 
 function scrollToStats(){
-  document.querySelector('.chart-container').scrollIntoView({behavior:'smooth'});
+  document.querySelector('.chart').scrollIntoView({behavior:'smooth'});
 }
+function closeMenu(){
+  document.getElementById("sidebar").classList.remove("active");
+}
+let index = 0;
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+
+function showSlide(i){
+  slides.forEach(s => s.classList.remove("active"));
+  dots.forEach(d => d.classList.remove("active"));
+
+  slides[i].classList.add("active");
+  dots[i].classList.add("active");
+}
+
+function nextSlide(){
+  index = (index + 1) % slides.length;
+  showSlide(index);
+}
+
+function prevSlide(){
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+}
+
+function goToSlide(i){
+  index = i;
+  showSlide(index);
+}
+/*Video player*/
+const video = document.getElementById("video");
+const progress = document.getElementById("progress");
+const volume = document.getElementById("volume");
+const card = document.getElementById("videoCard");
+const bigPlay = document.querySelector(".big-play");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let hideTimeout;
+
+/* SET DOWNLOAD LINK */
+downloadBtn.href = video.src;
+
+/* PLAY / PAUSE */
+function togglePlay(){
+  if(video.paused){
+    video.play();
+    bigPlay.style.display = "none";
+  } else {
+    video.pause();
+    bigPlay.style.display = "block";
+  }
+}
+
+/* UPDATE PROGRESS */
+video.ontimeupdate = () => {
+  progress.value = (video.currentTime / video.duration) * 100;
+};
+
+/* SEEK */
+progress.oninput = () => {
+  video.currentTime = (progress.value / 100) * video.duration;
+};
+
+/* VOLUME */
+volume.oninput = () => {
+  video.volume = volume.value;
+};
+
+/* LOOP */
+function toggleLoop(){
+  video.loop = !video.loop;
+}
+
+/* FULLSCREEN */
+function goFullscreen(){
+  if(video.requestFullscreen){
+    video.requestFullscreen();
+  }
+}
+
+/* AUTO HIDE CONTROLS */
+card.addEventListener("mousemove", () => {
+  card.classList.remove("hide-controls");
+
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(()=>{
+    card.classList.add("hide-controls");
+  },2000);
+});
+
+/* SHOW BUTTON WHEN ENDED */
+video.onended = () => {
+  bigPlay.style.display = "block";
+};
+
+/* GSAP ANIMATION */
+gsap.from(".video-card",{
+  opacity:0,
+  scale:0.9,
+  duration:1
+});
 </script>
 
 </body>
