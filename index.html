@@ -58,6 +58,21 @@ img:hover{
   filter:brightness(1.1);
 }
 
+
+/* SMOOTH SCROLL BUTTON */
+.scroll-top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#4cc9f0;
+  color:#000;
+  border:none;
+  padding:10px 15px;
+  border-radius:50px;
+  cursor:pointer;
+  display:none;
+}
+
 /* ================= NAVBAR ================= */
 
 nav{
@@ -204,16 +219,21 @@ img{
   max-width:100%;
   height:auto;
 }
-
 </style>
 </head>
 
 <body>
 
 <nav>
-    <img src="logo.png" alt="" height="60px">
-<h2>Night Shift India</h2>
- <!-- SIDEBAR -->
+    <div class="nav-left">
+    <img src="logo.png">
+    <h2>Night Shift India</h2>
+  </div>
+
+  <!-- MENU BUTTON -->
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <!-- SIDEBAR -->
   <ul id="sidebar">
   <li onclick="scrollToTop(); closeMenu()">Home</li>
   <li onclick="scrollToMap(); closeMenu()">Map</li>
