@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NightShift India - Cinematic Masterpiece</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">// Scroll button show
+const btnScroll = document.querySelector('.scroll-top');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>300){btnScroll.style.display='block'}
+  else{btnScroll.style.display='none'}
+});
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:#01040a;color:#fff;overflow-x:hidden}
+
+nav{position:fixed;width:100%;top:0;padding:15px 40px;display:flex;justify-content:space-between;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);z-index:1000}
+nav h2{color:#4cc9f0}
+
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
+.hero video{position:absolute;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(30%)}
+.hero h1{font-size:90px;color:#4cc9f0}
+.hero p{font-size:24px;color:#ddd}
+
+.section{padding:120px 10%}
+h2{color:#4cc9f0;margin-bottom:20px}
+p{color:#ccc;line-height:1.8}
+
+.highlight{color:#4cc9f0;font-weight:600}
+.reveal-line{display:block;opacity:0;transform:translateY(40px)}
+.storyline{font-size:28px;max-width:900px;opacity:0; }
+
+.parallax{height:80vh;background:url('image1.jpg') center/cover fixed;display:flex;align-items:center;justify-content:center;font-size:40px;text-align:center}
+
+.chart-container{max-width:700px;margin:auto}
+
+#map{height:500px;border-radius:15px}
+
+.fade-section{opacity:0;transform:scale(0.95)}
+
+footer{text-align:center;padding:40px;background:#000}
+
+/* IMAGE HOVER EFFECT */
+img{
+  transition:0.4s ease;
+}
+img:hover{
+  transform:scale(1.05);
+  filter:brightness(1.1);
+}
+
+/* NAV LINKS */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:20px;
+}
+nav ul li{
+  cursor:pointer;
+  color:#ccc;
+}
+nav ul li:hover{
+  color:#4cc9f0;
+}
+
+/* SMOOTH SCROLL BUTTON */
+.scroll-top{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#4cc9f0;
+  color:#000;
+  border:none;
+  padding:10px 15px;
+  border-radius:50px;
+  cursor:pointer;
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <img src="logo.png" alt="" height="60px">
+<h2>Night Shift India</h2>
+<ul>
+<li onclick="window.scrollTo({top:0,behavior:'smooth'})">Home</li>
+<li onclick="document.querySelector('#map').scrollIntoView({behavior:'smooth'})">Map</li>
+<li onclick="document.querySelector('.chart-container').scrollIntoView({behavior:'smooth'})">Stats</li>
+</ul>
+</nav>
+
+<section class="hero">
+<video autoplay muted loop>
+<source src="video.mp4" type="video/mp4">
+</video>
+<div>
+<h1>NightShift India</h1>
+<p>When India stays awake</p>
+</div>
+</section>
+
+<section class="section fade-section">
+<h2>The Rise of India’s Night Economy: Who Works While We Sleep? </h2>
+<p style="color: white;">At 1:47 AM, a phone lights up in a dark bedroom. Someone taps “Order Again.” Across the city, a delivery rider accepts the request, a restaurant kitchen reopens its burners, and a warehouse scanner beeps to life. A few kilometres away, a headset-wearing executive answers a customer call from another continent. The streets look quiet—but India is wide awake.
+Welcome to the country’s booming night economy.<br><br><span class="highlight"> When Night Became Prime Time</span> <br><br> A decade ago, most Indian cities slowed down after 10 PM. Markets shut, public transport reduced, and nightlife meant little more than hospitals, security guards, and a few late-night eateries. Today, that rhythm has flipped. Midnight is no longer the end of the day—it’s a second shift.
+Food delivery apps like Zomato and Swiggy have quietly reshaped urban life. Late dinners, binge-watching snacks, and post-work cravings have pushed peak order times beyond 9 PM, often stretching into the early morning hours. For many young professionals and students, dinner is now a midnight ritual.
+The change didn’t happen overnight. It grew slowly—powered by smartphones, fast internet, and a generation comfortable living beyond the traditional 9-to-5. </p>
+Welcome to the country’s booming night economy.<br><br><span class="highlight">  The Gig Workers Who Own the Night </span> <br><br> Step out in cities like Delhi, Mumbai, or Bengaluru after midnight and you’ll see the new night workforce in motion. Bikes with glowing delivery boxes zip through empty roads. Ride-hailing cars wait outside railway stations and airports. Convenience stores keep their lights on.
+Platforms like Uber and quick-commerce services such as Blinkit thrive after dark. Fewer traffic jams mean faster trips and quicker deliveries, often translating into higher earnings for gig workers.
+For many riders and drivers, night shifts offer flexibility. Students earn extra income after classes. Parents work while their children sleep. Some workers even prefer the calm roads and cooler temperatures.
+But night work isn’t glamorous. Safety concerns, fatigue, and unpredictable income remain constant challenges. The glowing delivery bag has become a symbol of opportunity—and of uncertainty. </p>
+Welcome to the country’s booming night economy.<br><br><span class="highlight">   India’s First Night Owls: BPO Workers </span> <br><br> Long before midnight food cravings, India’s night economy had already begun inside glass office towers.
+Business Process Outsourcing (BPO) companies pioneered the idea of working while the rest of the country slept. Firms such as TCS and Infosys operate 24×7 to support global clients. When customers in New York or London call a helpline during the day, it’s often the middle of the night in India.
+For thousands of young professionals, night shifts opened doors to corporate careers and stable salaries. Entire ecosystems formed around them—night shift allowances, office cab services, and cafeterias serving meals at 3 AM.
+Yet the lifestyle came with trade-offs. Sleep schedules flipped, social lives changed, and the body’s natural rhythm had to adapt. Still, the BPO sector proved something powerful: productivity doesn’t depend on daylight. </p>
+Welcome to the country’s booming night economy.<br><br> <span class="highlight">    Warehouses That Never Sleep  </span> <br><br> If gig workers are the face of the night economy, warehouses are its hidden engine.
+E-commerce giants like Amazon and Flipkart depend heavily on overnight operations. Parcels are sorted, scanned, packed, and loaded onto trucks while cities sleep. By sunrise, thousands of packages are already on their way to doorsteps.
+The logic is simple: consumers expect speed. Same-day and next-day delivery promises are only possible because someone is working through the night.
+For warehouse employees, night shifts offer steady pay and overtime benefits. But the work is physically demanding and often invisible to customers who click “Buy Now” without thinking about the journey behind the package.<br><br><span class="highlight" style="margin-bottom: 90px;">   India’s gig economy is set to surge 🚀   </span> <br> <br> <img src="ware.jpeg" alt="" height="300px"> <br><br><span class="highlight" style="margin-bottom: 90px;">   India’s night economy is led by IT & BPOs, with a 24×7 policy projected to boost jobs and retail by 25%.  </span> <br> <br> <img src="grap.jpeg" alt="" height="300px"> <br> <br> <span class="highlight">  The Lifestyle Shift Driving Demand  </span> <br><br> The night economy exists because modern lifestyles demand it.
+Streaming platforms keep audiences awake longer. Remote work connects teams across time zones. Social media never sleeps. Students study late. Freelancers work with clients abroad. Nighttime has quietly become the most flexible part of the day.
+Cities are responding. Late-night cafés, 24×7 gyms, and all-night pharmacies are becoming more common. Airports, metro stations, and highways buzz with activity long after midnight. Urban India is slowly turning into a 24-hour society.
+For many young Indians, nighttime is the only quiet window to relax, create, or hustle.
+<br><br><span class="highlight">   The Human Cost of the 24×7 Life   </span> <br><br> 
+Behind the convenience lies a serious question: who pays the price?
+Night shifts can disrupt sleep cycles, affect mental health, and increase long-term health risks. Gig workers often lack job security and insurance. Safety remains a concern, especially for women working late hours.
+Companies have introduced safety policies, emergency helplines, and transportation services. But as the night economy expands, experts say labour laws and urban infrastructure must evolve too.
+Better public transport, safe rest areas, healthcare support, and fair wages will be crucial to sustaining this workforce.
+<br><br><span class="highlight">    A Nation Awake Around the Clock   </span> <br><br> 
+India’s night economy is no longer a trend—it’s a transformation. The country is quietly shifting toward a 24×7 rhythm where work, entertainment, and services never stop.
+The next time a late-night craving is satisfied, a cab arrives in minutes, or a customer support call is answered instantly, pause for a moment.
+Somewhere in the city, someone is just starting their day.
+While India sleeps, millions are awake—keeping the country moving, one midnight shift at a time.
+</section>
+<section class="section fade-section">
+<div style="margin-bottom: 20px; font-size: 2rem; ">Millions Awake. One Nation Moving.</div>
+<h2 style=" padding-bottom: 30px; padding-top: 20px; display: flex; align-items: center; justify-content: center">Night Economy Growth</h2>
+<div class="chart-container"><canvas id="chart"></canvas></div>
+</section>
+
+<section class="section fade-section">
+<h2>India Night Hotspots</h2>
+<div id="map"></div>
+</section>
+
+<!-- VISUAL STORY SECTION -->
+<section class="section fade-section">
+  <h2>Life After Midnight</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+    <img src="night.jpeg" style="width:100%;border-radius:12px" />
+    <img src="night2remake.jpg" style="width:100%;border-radius:12px; " />
+    <img src="night3.jpeg" style="width:100%;border-radius:12px" />
+  </div>
+  <p style="margin-top:20px">
+    Across Indian cities, the night tells a different story. Streets glow under neon lights, delivery riders move swiftly through empty roads, and office towers remain lit as global work continues.
+  </p>
+</section>
+
+<!-- WORKERS DETAIL -->
+<section class="section fade-section">
+  <h2>The People Behind the Night</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+    <div class="card">
+      <img src="photo2.jpeg" style="width:100%;border-radius:10px;margin-bottom:10px"/>
+      <p>Delivery partners ensure food and essentials reach homes even at midnight.</p>
+    </div>
+    <div class="card">
+      <img src="photo5.jpeg" style="width:100%;border-radius:10px;margin-bottom:10px"/>
+      <p>BPO workers connect India to the world, handling global operations overnight.</p>
+    </div>
+    <div class="card">
+      <img src="photo9.jpeg" style="width:100%;border-radius:10px;margin-bottom:10px"/>
+      <p>Warehouse staff and logistics teams power fast deliveries before sunrise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE SECTION -->
+<section class="parallax">
+  <div>“While India sleeps, millions are working.”</div>
+</section>
+
+<footer>© 2026 NightShift India 🌙 Cinematic Experience</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+
+// GSAP animations
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.fade-section').forEach(sec=>{
+ gsap.to(sec,{scrollTrigger:{trigger:sec,start:'top 80%'},opacity:1,scale:1,duration:1});
+});
+
+// Story animation
+
+document.querySelectorAll('.storyline').forEach(container=>{
+ let lines=container.innerHTML.split('<br><br>');
+ container.innerHTML='';
+ lines.forEach(line=>{
+   let span=document.createElement('span');
+   span.classList.add('reveal-line');
+   span.innerHTML=line+'<br><br>';
+   container.appendChild(span);
+ });
+});
+
+gsap.utils.toArray('.reveal-line').forEach((el,i)=>{
+ gsap.to(el,{scrollTrigger:{trigger:el,start:'top 90%'},opacity:1,y:0,duration:1,delay:i*0.15});
+});
+
+// Chart (FIXED - declared once only)
+const chartCtx = document.getElementById('chart');
+new Chart(chartCtx,{type:'line',data:{labels:['2015','2018','2021','2024','2026'],datasets:[{label:'Growth',data:[20,40,65,90,120],borderWidth:2}]}});
+
+// MAP
+const map = L.map('map').setView([22.9734,78.6569],5);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+const glowIcon = L.divIcon({className:'glow-marker',html:'<div class="pulse"></div>',iconSize:[20,20]});
+
+const hotspots=[
+{city:"Delhi",coords:[28.6139,77.2090]},
+{city:"Mumbai",coords:[19.0760,72.8777]},
+{city:"Bengaluru",coords:[12.9716,77.5946]},
+{city:"Hyderabad",coords:[17.3850,78.4867]}
+];
+
+hotspots.forEach(h=>{
+ L.marker(h.coords,{icon:glowIcon}).addTo(map).bindPopup(h.city);
+});
+
+// glow style
+const style=document.createElement('style');
+style.innerHTML=`
+.glow-marker .pulse{width:15px;height:15px;background:#4cc9f0;border-radius:50%;box-shadow:0 0 15px #4cc9f0;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:1}100%{transform:scale(2.5);opacity:0}}
+`;
+document.head.appendChild(style);
+
+</script>
+
+</body>
+</html>
