@@ -58,37 +58,151 @@ img:hover{
   filter:brightness(1.1);
 }
 
-/* NAV LINKS */
+/* ================= NAVBAR ================= */
+
 nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:12px 25px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  z-index:1000;
 }
-nav ul{
-  list-style:none;
+
+/* LEFT */
+.nav-left{
   display:flex;
-  gap:20px;
+  align-items:center;
+  gap:10px;
 }
-nav ul li{
-  cursor:pointer;
-  color:#ccc;
+
+.nav-left img{
+  height:40px;
 }
-nav ul li:hover{
+
+.nav-left h2{
+  font-size:18px;
   color:#4cc9f0;
 }
 
-/* SMOOTH SCROLL BUTTON */
-.scroll-top{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#4cc9f0;
-  color:#000;
-  border:none;
-  padding:10px 15px;
-  border-radius:50px;
+/* MENU BUTTON */
+.menu-btn{
+  font-size:24px;
   cursor:pointer;
   display:none;
+}
+
+/* SIDEBAR (HIDDEN DEFAULT) */
+#sidebar{
+  list-style:none;
+  position:fixed;
+  top:0;
+  right:-250px;
+  width:250px;
+  height:100vh;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+  padding-top:80px;
+  align-items:center;
+  transition:0.3s;
+}
+
+#sidebar li{
+  cursor:pointer;
+  color:#ccc;
+  font-size:16px;
+}
+
+#sidebar li:hover{
+  color:#4cc9f0;
+}
+
+/* SHOW SIDEBAR */
+#sidebar.active{
+  right:0;
+}
+
+/* DESKTOP NAV */
+@media (min-width: 769px){
+
+  .menu-btn{
+    display:none;
+  }
+
+  #sidebar{
+    position:static;
+    height:auto;
+    width:auto;
+    flex-direction:row;
+    background:none;
+    padding:0;
+    gap:20px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+  .menu-btn{
+    display:block;
+  }
+}
+
+/* ================= FULL WEBSITE RESPONSIVE ================= */
+
+/* HERO */
+@media (max-width: 992px){
+  .hero h1{font-size:60px}
+}
+
+@media (max-width: 768px){
+  .hero h1{font-size:40px}
+  .hero p{font-size:18px}
+}
+
+@media (max-width: 480px){
+  .hero h1{font-size:28px}
+  .hero p{font-size:16px}
+}
+
+/* SECTION */
+@media (max-width: 768px){
+  .section{
+    padding:80px 20px;
+  }
+}
+
+/* GRID FIX */
+@media (max-width: 768px){
+  div[style*="grid"]{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* PARALLAX FIX */
+@media (max-width: 768px){
+  .parallax{
+    background-attachment:scroll;
+    font-size:24px;
+  }
+}
+
+/* MAP */
+@media (max-width: 768px){
+  #map{
+    height:300px;
+  }
+}
+
+/* IMAGES */
+img{
+  max-width:100%;
+  height:auto;
 }
 
 </style>
@@ -99,10 +213,11 @@ nav ul li:hover{
 <nav>
     <img src="logo.png" alt="" height="60px">
 <h2>Night Shift India</h2>
-<ul>
-<li onclick="window.scrollTo({top:0,behavior:'smooth'})">Home</li>
-<li onclick="document.querySelector('#map').scrollIntoView({behavior:'smooth'})">Map</li>
-<li onclick="document.querySelector('.chart-container').scrollIntoView({behavior:'smooth'})">Stats</li>
+ <!-- SIDEBAR -->
+  <ul id="sidebar">
+  <li onclick="scrollToTop(); closeMenu()">Home</li>
+  <li onclick="scrollToMap(); closeMenu()">Map</li>
+  <li onclick="scrollToStats(); closeMenu()">Stats</li>
 </ul>
 </nav>
 
@@ -256,7 +371,25 @@ style.innerHTML=`
 @keyframes pulse{0%{transform:scale(1);opacity:1}100%{transform:scale(2.5);opacity:0}}
 `;
 document.head.appendChild(style);
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("active");
+}
 
+function closeMenu(){
+  document.getElementById("sidebar").classList.remove("active");
+}
+
+function scrollToTop(){
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function scrollToMap(){
+  document.querySelector('#map').scrollIntoView({behavior:'smooth'});
+}
+
+function scrollToStats(){
+  document.querySelector('.chart-container').scrollIntoView({behavior:'smooth'});
+}
 </script>
 
 </body>
